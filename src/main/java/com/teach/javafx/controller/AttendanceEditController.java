@@ -36,7 +36,7 @@ public class AttendanceEditController {
     private TextField remarkField;
 
     private AttendanceTableController attendanceTableController = null;
-    private Integer attendanceId = null;
+//    private Integer attendanceId = null;
 
     @FXML
     public void initialize() {
@@ -62,7 +62,7 @@ public class AttendanceEditController {
             data.put("status", op.getValue().toString()); // 直接使用字符串值
         }
 
-        data.put("attendanceId", attendanceId);
+//        data.put("attendanceId", attendanceId);
         data.put("date", dateField.getText());
         data.put("remark", remarkField.getText());
 
@@ -112,16 +112,16 @@ public class AttendanceEditController {
             }
 
         if(data == null) {
-            attendanceId = null;
+//            attendanceId = null;
             studentComboBox.getSelectionModel().select(-1);
             statusComboBox.getSelectionModel().select(-1);
             studentComboBox.setDisable(false);
             dateField.setText("");
             remarkField.setText("");
         } else {
-            attendanceId = CommonMethod.getInteger(data, "attendanceId");
+//            attendanceId = CommonMethod.getInteger(data, "attendanceId");
             studentComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(studentList, CommonMethod.getString(data, "personId")));
-            statusComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(statusList, CommonMethod.getString(data, "statusId")));
+            statusComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(statusList, CommonMethod.getString(data, "status")));
             studentComboBox.setDisable(true);
             dateField.setText(CommonMethod.getString(data, "dateNum"));
             remarkField.setText(CommonMethod.getString(data, "remark"));

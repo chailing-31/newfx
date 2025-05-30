@@ -80,26 +80,70 @@ public class AttendanceTableController {
         }
         return studentList;
     }
-    
+
+    //创建枚举类考勤状态
+    public enum AttendanceStatus {
+        PRESENT("1", "出勤"),
+        ABSENT("2", "缺勤"),
+        LATE("3", "迟到"),
+        LEAVE("4", "请假"),
+        EARLY_LEAVE("5", "早退");
+
+        private final String value;
+        private final String title;
+
+        AttendanceStatus(String value, String title) {
+            this.value = value;
+            this.title = title;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public static AttendanceStatus fromValue(String value) {
+            for (AttendanceStatus status : values()) {
+                if (status.value.equals(value)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Invalid status value: " + value);
+        }
+
+        public static List<OptionItem> toOptionItems() {
+            List<OptionItem> items = new ArrayList<>();
+            for (AttendanceStatus status : values()) {
+                items.add(new OptionItem(null, status.value, status.title));
+            }
+            return items;
+        }
+    }
+
     /**
      * 获取考勤状态列表
      * @return 考勤状态列表
      */
     public static List<OptionItem> getStatusList() {
+//          if (statusList == null) {
+////            // 从后台获取考勤状态列表
+////            System.out.println("开始请求考勤状态列表...");
+////            DataRequest req = new DataRequest();
+////            statusList = HttpRequestUtil.requestOptionItemList("/api/attendance/status-options", req);//            System.out.println("请求结果：" + (statusList != null ? "成功，获取到 " + statusList.size() + " 条记录" : "失败"));
+//           if (statusList == null) {
+//                statusList = new ArrayList<>();
+//                statusList.add(new OptionItem(null, "1", "出勤")); // PRESENT
+//                statusList.add(new OptionItem(null, "2", "缺勤")); // ABSENT
+//                statusList.add(new OptionItem(null, "3", "迟到")); // LATE
+//                statusList.add(new OptionItem(null, "4", "请假")); // LEAVE
+//                statusList.add(new OptionItem(null, "5", "早退")); // EARLY_LEAVE
+//            }
+////        }
         if (statusList == null) {
-            // 从后台获取考勤状态列表
-            System.out.println("开始请求考勤状态列表...");
-            DataRequest req = new DataRequest();
-            statusList = HttpRequestUtil.requestOptionItemList("/api/attendance/status-options", req);
-            System.out.println("请求结果：" + (statusList != null ? "成功，获取到 " + statusList.size() + " 条记录" : "失败"));
-            if (statusList == null) {
-                statusList = new ArrayList<>();
-                statusList.add(new OptionItem(null, "1", "出勤")); // PRESENT
-                statusList.add(new OptionItem(null, "2", "缺勤")); // ABSENT
-                statusList.add(new OptionItem(null, "3", "迟到")); // LATE
-                statusList.add(new OptionItem(null, "4", "请假")); // LEAVE
-                statusList.add(new OptionItem(null, "5", "早退")); // EARLY_LEAVE
-            }
+            statusList = AttendanceStatus.toOptionItems();
         }
         return statusList;
     }
@@ -129,7 +173,7 @@ public class AttendanceTableController {
     private void onQueryButtonClick() {
         // 获取选中的学生和状态ID
         Integer personId = 0;
-        Integer statusId = 0;
+        String status = "";
         String date = "";
         String classId = "";
 
@@ -148,21 +192,21 @@ public class AttendanceTableController {
             }
         }
 
-        if (statusComboBox != null && statusComboBox.getSelectionModel().getSelectedItem() != null) {
-            OptionItem op = statusComboBox.getSelectionModel().getSelectedItem();
-            if(op != null && !op.getValue().equals("0")) {
-                statusId = Integer.parseInt(op.getValue());
-            }
-        }
+//        if (statusComboBox != null && statusComboBox.getSelectionModel().getSelectedItem() != null) {
+//            OptionItem op = statusComboBox.getSelectionModel().getSelectedItem();
+//            if(op != null && !op.getValue().equals("0")) {
+//                statusId = Integer.parseInt(op.getValue());
+//            }
+//        }
 
         // 发送查询请求
         DataRequest req = new DataRequest();
         req.add("personId", personId);
-//        req.add("statusId", statusId);
+        req.add("status", status);
         req.add("classId", classId);
         req.add("date", date);
         //发送请求到后端
-        DataResponse res = HttpRequestUtil.request("/api/attendance/status-options", req);
+        DataResponse res = HttpRequestUtil.request("/api/attendance/class", req);
         //处理响应
         if(res != null && res.getCode()== 0) {
             attendanceList = (ArrayList<Map>)res.getData();
@@ -232,12 +276,12 @@ public class AttendanceTableController {
         }
 
         // 创建考勤状态列表（基于枚举）
-        statusList = new ArrayList<>();
-        statusList.add(new OptionItem(null, "1", "出勤")); // PRESENT
-        statusList.add(new OptionItem(null, "2", "缺勤")); // ABSENT
-        statusList.add(new OptionItem(null, "3", "迟到")); // LATE
-        statusList.add(new OptionItem(null, "4", "请假")); // LEAVE
-        statusList.add(new OptionItem(null, "5", "早退")); // EARLY_LEAVE
+        statusList = AttendanceStatus.toOptionItems();
+//        statusList.add(new OptionItem(null, "1", "出勤")); // PRESENT
+//        statusList.add(new OptionItem(null, "2", "缺勤")); // ABSENT
+//        statusList.add(new OptionItem(null, "3", "迟到")); // LATE
+//        statusList.add(new OptionItem(null, "4", "请假")); // LEAVE
+//        statusList.add(new OptionItem(null, "5", "早退")); // EARLY_LEAVE
 
         // 设置表格列与数据字段的映射
         studentNumColumn.setCellValueFactory(new MapValueFactory<>("studentNum"));
@@ -370,21 +414,19 @@ public class AttendanceTableController {
 
         Integer statusId = CommonMethod.getInteger(data, "statusId");
         String statusEnum;
-        switch(statusId) {
-            case 1: statusEnum = "PRESENT"; break;
-            case 2: statusEnum = "ABSENT"; break;
-            case 3: statusEnum = "LATE"; break;
-            case 4: statusEnum = "LEAVE"; break;
-            case 5: statusEnum = "EARLY_LEAVE"; break;
-            default:
-                MessageDialog.showDialog("无效的考勤状态！");
-                return;
+        try {
+            // 使用枚举的name()方法发送枚举名称
+            statusEnum = AttendanceStatus.fromValue(String.valueOf(statusId)).name();
+        } catch (IllegalArgumentException e) {
+            MessageDialog.showDialog("无效的考勤状态！");
+            return;
         }
+
 
 
         // 保存数据
         DataRequest req = new DataRequest();
-        req.add("attendanceId", CommonMethod.getInteger(data, "attendanceId"));
+//        req.add("attendanceId", CommonMethod.getInteger(data, "attendanceId"));
         req.add("personId", personId);
         req.add("status", statusEnum);
         req.add("date", CommonMethod.getString(data, "date")); // 确保日期字段名正确
