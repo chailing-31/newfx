@@ -22,7 +22,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            
+
             <!-- 课程筛选 -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                <children>
@@ -33,7 +33,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            
+
             <!-- 操作按钮区域 -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                <children>
@@ -45,7 +45,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            
+
             <!-- 作业列表表格 -->
             <TableView fx:id="dataTableView" prefHeight="400">
                <columns>
@@ -62,47 +62,47 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      
+
       <!-- 右侧：作业详细信息编辑区域 -->
       <ScrollPane>
          <content>
             <VBox spacing="15" prefWidth="400">
                <children>
                   <Label text="作业详细信息" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-                  
+
                   <!-- 基本信息 -->
                   <VBox spacing="10">
                      <children>
                         <Label text="基本信息" style="-fx-font-weight: bold;" />
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="作业编号*：" prefWidth="80" />
                               <TextField fx:id="numField" prefWidth="200" promptText="请输入作业编号" />
                            </children>
                         </HBox>
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="作业标题*：" prefWidth="80" />
                               <TextField fx:id="titleField" prefWidth="200" promptText="请输入作业标题" />
                            </children>
                         </HBox>
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="所属课程：" prefWidth="80" />
                               <ComboBox fx:id="courseComboBox" prefWidth="200" />
                            </children>
                         </HBox>
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="作业状态：" prefWidth="80" />
                               <ComboBox fx:id="statusComboBox" prefWidth="200" />
                            </children>
                         </HBox>
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="提交方式：" prefWidth="80" />
@@ -111,26 +111,26 @@
                         </HBox>
                      </children>
                   </VBox>
-                  
+
                   <!-- 时间信息 -->
                   <VBox spacing="10">
                      <children>
                         <Label text="时间信息" style="-fx-font-weight: bold;" />
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="发布时间：" prefWidth="80" />
                               <DatePicker fx:id="publishTimePicker" prefWidth="200" />
                            </children>
                         </HBox>
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="截止时间：" prefWidth="80" />
                               <DatePicker fx:id="deadlinePicker" prefWidth="200" />
                            </children>
                         </HBox>
-                        
+
                         <HBox spacing="10" alignment="CENTER_LEFT">
                            <children>
                               <Label text="总分：" prefWidth="80" />
@@ -139,19 +139,19 @@
                         </HBox>
                      </children>
                   </VBox>
-                  
+
                   <!-- 内容信息 -->
                   <VBox spacing="10">
                      <children>
                         <Label text="内容信息" style="-fx-font-weight: bold;" />
-                        
+
                         <VBox spacing="5">
                            <children>
                               <Label text="作业内容：" />
                               <TextArea fx:id="contentField" prefHeight="100" promptText="请输入作业内容" />
                            </children>
                         </VBox>
-                        
+
                         <VBox spacing="5">
                            <children>
                               <Label text="作业要求：" />
