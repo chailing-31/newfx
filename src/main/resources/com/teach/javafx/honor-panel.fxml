@@ -15,16 +15,16 @@
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label text="编号/荣誉名称/姓名:" />
             <TextField fx:id="numNameTextField" prefWidth="180" promptText="请输入编号、荣誉名称或学生姓名" />
-            
+
             <Label text="荣誉类型:" />
             <ComboBox fx:id="honorTypeFilterComboBox" prefWidth="100" />
-            
+
             <Label text="荣誉等级:" />
             <ComboBox fx:id="honorLevelFilterComboBox" prefWidth="100" />
-            
+
             <Label text="状态:" />
             <ComboBox fx:id="statusFilterComboBox" prefWidth="100" />
-            
+
             <Button fx:id="queryButton" onAction="#onQueryButtonClick" text="查询" />
             <Button fx:id="refreshButton" onAction="#onQueryButtonClick" text="刷新" />
         </HBox>
