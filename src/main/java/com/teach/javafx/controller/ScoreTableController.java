@@ -48,8 +48,6 @@ public class ScoreTableController {
 
     @FXML
     private ComboBox<OptionItem> studentComboBox;
-
-
     private List<OptionItem> studentList;
     @FXML
     private ComboBox<OptionItem> courseComboBox;
