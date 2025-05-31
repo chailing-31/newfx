@@ -168,37 +168,36 @@ public class AttendanceTableController {
 
     /**
      * 获取考勤状态列表
-     * @return 考勤状态列表
      */
 
-    /*public static List<OptionItem> getStatusList() {
+    public static List<OptionItem> getStatusList() {
 //          if (statusList == null) {
 ////            // 从后台获取考勤状态列表
 ////            System.out.println("开始请求考勤状态列表...");
 ////            DataRequest req = new DataRequest();
 ////            statusList = HttpRequestUtil.requestOptionItemList("/api/attendance/status-options", req);//            System.out.println("请求结果：" + (statusList != null ? "成功，获取到 " + statusList.size() + " 条记录" : "失败"));
-//           if (statusList == null) {
-//                statusList = new ArrayList<>();
-//                statusList.add(new OptionItem(null, "1", "出勤")); // PRESENT
-//                statusList.add(new OptionItem(null, "2", "缺勤")); // ABSENT
-//                statusList.add(new OptionItem(null, "3", "迟到")); // LATE
-//                statusList.add(new OptionItem(null, "4", "请假")); // LEAVE
-//                statusList.add(new OptionItem(null, "5", "早退")); // EARLY_LEAVE
-//            }
+           if (statusList == null) {
+                statusList = new ArrayList<>();
+                statusList.add(new OptionItem(null, "PRESENT", "出勤")); // PRESENT
+                statusList.add(new OptionItem(null, "ABSENT", "缺勤")); // ABSENT
+                statusList.add(new OptionItem(null, "LATE", "迟到")); // LATE
+                statusList.add(new OptionItem(null, "LEAVE", "请假")); // LEAVE
+                statusList.add(new OptionItem(null, "EARLY_LEAVE", "早退")); // EARLY_LEAVE
+            }
 ////        }
         if (statusList == null) {
             statusList = AttendanceStatus.toOptionItems();
         }
         return statusList;
-    }*/
-
-    // 修改后的getStatusList方法（在AttendanceTableController.java中）
-    public static List<OptionItem> getStatusList() {
-        if (statusList == null) {
-            statusList = AttendanceStatus.toOptionItems();
-        }
-        return statusList;
     }
+
+//    // 修改后的getStatusList方法（在AttendanceTableController.java中）
+//    public static List<OptionItem> getStatusList() {
+//        if (statusList == null) {
+//            statusList = AttendanceStatus.toOptionItems();
+//        }
+//        return statusList;
+//    }
     
     /**
      * 初始化下拉框
