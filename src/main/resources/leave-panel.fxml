@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.LeaveController">
+    <!-- 左侧：列表和查询 -->
+    <VBox prefWidth="600" spacing="10">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+
+        <!-- 查询条件 -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="编号/姓名:" />
+            <TextField fx:id="numNameTextField" prefWidth="200" promptText="请输入请假编号或学生姓名" />
+            
+            <Label text="请假类型:" />
+            <ComboBox fx:id="leaveTypeFilterComboBox" prefWidth="120" />
+            
+            <Label text="状态:" />
+            <ComboBox fx:id="statusFilterComboBox" prefWidth="120" />
+            
+            <Button fx:id="queryButton" onAction="#onQueryButtonClick" text="查询" />
+            <Button fx:id="refreshButton" onAction="#onQueryButtonClick" text="刷新" />
+        </HBox>
+
+        <!-- 操作按钮 -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Button fx:id="addButton" onAction="#onAddButtonClick" text="新建" />
+            <Button fx:id="saveButton" onAction="#onSaveButtonClick" text="保存" />
+            <Button fx:id="deleteButton" onAction="#onDeleteButtonClick" text="删除" />
+            <Button fx:id="approveButton" onAction="#onApproveButtonClick" text="批准" />
+            <Button fx:id="rejectButton" onAction="#onRejectButtonClick" text="拒绝" />
+        </HBox>
+
+        <!-- 数据表格 -->
+        <TableView fx:id="dataTableView" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="numColumn" prefWidth="80" text="请假编号" />
+                <TableColumn fx:id="studentNameColumn" prefWidth="80" text="学生姓名" />
+                <TableColumn fx:id="leaveTypeColumn" prefWidth="80" text="请假类型" />
+                <TableColumn fx:id="startDateColumn" prefWidth="120" text="开始时间" />
+                <TableColumn fx:id="endDateColumn" prefWidth="120" text="结束时间" />
+                <TableColumn fx:id="daysColumn" prefWidth="60" text="天数" />
+                <TableColumn fx:id="statusColumn" prefWidth="80" text="状态" />
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- 右侧：详细信息编辑 -->
+    <VBox prefWidth="500" spacing="10">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="请假详细信息" />
+
+        <!-- 基本信息 -->
+        <TitledPane expanded="true" text="基本信息">
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="80" />
+                    <ColumnConstraints minWidth="200" />
+                </columnConstraints>
+
+                <Label text="请假编号:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="numField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="学生:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="studentComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="请假类型:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <ComboBox fx:id="leaveTypeComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="状态:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="statusComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </GridPane>
+        </TitledPane>
+
+        <!-- 时间信息 -->
+        <TitledPane expanded="true" text="时间信息">
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="80" />
+                    <ColumnConstraints minWidth="200" />
+                </columnConstraints>
+
+                <Label text="开始时间:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="结束时间:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="请假天数:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="daysField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </GridPane>
+        </TitledPane>
+
+        <!-- 详细信息 -->
+        <TitledPane expanded="true" text="详细信息" VBox.vgrow="ALWAYS">
+            <VBox spacing="10">
+                <Label text="请假原因:" />
+                <TextArea fx:id="reasonField" prefRowCount="3" wrapText="true" />
+
+                <Label text="审批意见:" />
+                <TextArea fx:id="approveCommentField" prefRowCount="2" wrapText="true" />
+            </VBox>
+        </TitledPane>
+    </VBox>
+</SplitPane> 
