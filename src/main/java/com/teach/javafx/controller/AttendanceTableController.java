@@ -68,6 +68,7 @@ public class AttendanceTableController {
      * 获取学生列表
      * @return 学生列表
      */
+
     public static List<OptionItem> getStudentList() {
         if (studentList == null) {
             System.out.println("开始请求学生列表...");
@@ -82,7 +83,7 @@ public class AttendanceTableController {
     }
 
     //创建枚举类考勤状态
-    public enum AttendanceStatus {
+    /*public enum AttendanceStatus {
         PRESENT("1", "出勤"),
         ABSENT("2", "缺勤"),
         LATE("3", "迟到"),
@@ -121,13 +122,56 @@ public class AttendanceTableController {
             }
             return items;
         }
+    }*/
+
+    // 修改后的前端枚举类（在AttendanceTableController.java中）
+    public enum AttendanceStatus {
+        PRESENT("PRESENT", "出勤"),
+        ABSENT("ABSENT", "缺勤"),
+        LATE("LATE", "迟到"),
+        LEAVE("LEAVE", "请假"),
+        EARLY_LEAVE("EARLY_LEAVE", "早退");
+
+        private final String value;
+        private final String title;
+
+        AttendanceStatus(String value, String title) {
+            this.value = value;
+            this.title = title;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public static AttendanceStatus fromValue(String value) {
+            for (AttendanceStatus status : values()) {
+                if (status.value.equals(value)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Invalid status value: " + value);
+        }
+
+        public static List<OptionItem> toOptionItems() {
+            List<OptionItem> items = new ArrayList<>();
+            for (AttendanceStatus status : values()) {
+                items.add(new OptionItem(status.value, status.title));
+            }
+            return items;
+        }
     }
 
     /**
      * 获取考勤状态列表
      * @return 考勤状态列表
      */
-    public static List<OptionItem> getStatusList() {
+
+    /*public static List<OptionItem> getStatusList() {
 //          if (statusList == null) {
 ////            // 从后台获取考勤状态列表
 ////            System.out.println("开始请求考勤状态列表...");
@@ -146,11 +190,21 @@ public class AttendanceTableController {
             statusList = AttendanceStatus.toOptionItems();
         }
         return statusList;
+    }*/
+
+    // 修改后的getStatusList方法（在AttendanceTableController.java中）
+    public static List<OptionItem> getStatusList() {
+        if (statusList == null) {
+            statusList = AttendanceStatus.toOptionItems();
+        }
+        return statusList;
     }
     
     /**
      * 初始化下拉框
      */
+
+
     private void initComboBox() {
         // 初始化学生下拉框
         studentList = getStudentList();
@@ -306,6 +360,7 @@ public class AttendanceTableController {
     /**
      * 刷新活动列表
      */
+
     public void refreshAttendanceList() {
         classField.setText(""); // 清空搜索条件
         dateField.setText("");
@@ -388,7 +443,7 @@ public class AttendanceTableController {
     }
 
     // 关闭对话框并处理结果
-    public void doClose(String cmd, Map<String, Object> data) {
+    /*public void doClose(String cmd, Map<String, Object> data) {
         MainApplication.setCanClose(true);
         stage.close();
         if(!"ok".equals(cmd)) return;
@@ -429,7 +484,8 @@ public class AttendanceTableController {
 
 
 
-        // 保存数据
+        /*
+
         DataRequest req = new DataRequest();
         //req.add("attendanceId", CommonMethod.getInteger(data, "attendanceId"));
         req.add("personId", personId);
@@ -446,5 +502,58 @@ public class AttendanceTableController {
         } else {
             MessageDialog.showDialog(res != null ? res.getMsg() : "保存失败");
         }
+    }*/
+
+    // 修改后的doClose方法（在AttendanceTableController.java中）
+    public void doClose(String cmd, Map<String, Object> data) {
+        MainApplication.setCanClose(true);
+        stage.close();
+        if(!"ok".equals(cmd)) return;
+
+        // 验证数据
+        Integer personId = CommonMethod.getInteger(data, "personId");
+        if(personId == null || personId == 0) {
+            MessageDialog.showDialog("没有选中学生，不能保存！");
+            return;
+        }
+
+        String date = CommonMethod.getString(data, "date");
+        if(date == null || date.trim().isEmpty()) {
+            MessageDialog.showDialog("日期不能为空！");
+            return;
+        }
+
+        String status = CommonMethod.getString(data, "status");
+        if(status == null || status.trim().isEmpty()) {
+            MessageDialog.showDialog("考勤状态不能为空！");
+            return;
+        }
+
+        // 验证状态值是否有效
+        try {
+            AttendanceStatus.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            MessageDialog.showDialog("无效的考勤状态！");
+            return;
+        }
+
+        // 保存数据
+        DataRequest req = new DataRequest();
+        req.add("personId", personId);
+        req.add("status", status);
+        req.add("date", CommonMethod.getString(data, "date"));
+        req.add("remark", CommonMethod.getString(data, "remark"));
+
+        System.out.println("准备保存的数据：" + req.getData());
+
+        DataResponse res = HttpRequestUtil.request("/api/attendance/record", req);
+        if(res != null && res.getCode() == 0) {
+            MessageDialog.showDialog("保存成功！");
+            onQueryButtonClick();
+        } else {
+            MessageDialog.showDialog(res != null ? res.getMsg() : "保存失败");
+        }
     }
 }
+
+

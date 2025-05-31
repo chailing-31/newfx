@@ -1,6 +1,5 @@
 package com.teach.javafx.controller;
 
-import com.teach.javafx.request.DataRequest;
 import com.teach.javafx.request.OptionItem;
 import com.teach.javafx.util.CommonMethod;
 import javafx.fxml.FXML;
