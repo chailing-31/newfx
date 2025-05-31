@@ -69,14 +69,13 @@ public class AttendanceTableController {
      * @return 学生列表
      */
 
-    public static List<OptionItem> getStudentList() {
+    public static synchronized List<OptionItem> getStudentList() {
         if (studentList == null) {
-            System.out.println("开始请求学生列表...");
+            System.out.println("从后端加载学生列表...");
             DataRequest req = new DataRequest();
             studentList = HttpRequestUtil.requestOptionItemList("/api/volunteer/getStudentItemOptionList", req);
-            System.out.println("请求结果：" + (studentList != null ? "成功，获取到 " + studentList.size() + " 条记录" : "失败"));
-            if(studentList == null) {
-                studentList = new ArrayList<>();
+            if (studentList == null) {
+                studentList = new ArrayList<>(); // 防止null
             }
         }
         return studentList;
@@ -178,11 +177,11 @@ public class AttendanceTableController {
 ////            statusList = HttpRequestUtil.requestOptionItemList("/api/attendance/status-options", req);//            System.out.println("请求结果：" + (statusList != null ? "成功，获取到 " + statusList.size() + " 条记录" : "失败"));
            if (statusList == null) {
                 statusList = new ArrayList<>();
-                statusList.add(new OptionItem(null, "PRESENT", "出勤")); // PRESENT
-                statusList.add(new OptionItem(null, "ABSENT", "缺勤")); // ABSENT
-                statusList.add(new OptionItem(null, "LATE", "迟到")); // LATE
+                statusList.add(new OptionItem(null,"PRESENT", "出勤")); // PRESENT
+                statusList.add(new OptionItem( null,"ABSENT", "缺勤")); // ABSENT
+                statusList.add(new OptionItem( null,"LATE", "迟到")); // LATE
                 statusList.add(new OptionItem(null, "LEAVE", "请假")); // LEAVE
-                statusList.add(new OptionItem(null, "EARLY_LEAVE", "早退")); // EARLY_LEAVE
+                statusList.add(new OptionItem( null,"EARLY_LEAVE", "早退")); // EARLY_LEAVE
             }
 ////        }
         if (statusList == null) {
