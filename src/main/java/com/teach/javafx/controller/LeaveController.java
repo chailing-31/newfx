@@ -60,6 +60,9 @@ public class LeaveController extends ToolController {
     @FXML
     private ComboBox<OptionItem> statusComboBox;
     @FXML
+    private ComboBox<OptionItem> teacherComboBox;
+    private List<OptionItem> teacherList;
+    @FXML
     private DatePicker startDatePicker;
     @FXML
     private DatePicker endDatePicker;
@@ -72,6 +75,9 @@ public class LeaveController extends ToolController {
 
     private Integer leaveId = null;
     private ObservableList<Map> observableList = FXCollections.observableArrayList();
+    public List<OptionItem> getTeacherList() {
+        return teacherList;
+    }
 
     /**
      * 页面初始化
@@ -138,6 +144,14 @@ public class LeaveController extends ToolController {
         filterStatusList.add(new OptionItem(0, "", "全部状态"));
         filterStatusList.addAll(statusList);
         statusFilterComboBox.setItems(FXCollections.observableArrayList(filterStatusList));
+
+        //初始化老师下拉框
+        DataRequest req =new DataRequest();
+        teacherList = HttpRequestUtil.requestOptionItemList("/api/teacher/getTeacherList",req); //从后台获取所有学生信息列表集合
+        OptionItem item = new OptionItem(null,"0","请选择");
+        teacherComboBox.getItems().addAll(item);
+        teacherComboBox.getItems().addAll(teacherList);
+
     }
 
     /**
