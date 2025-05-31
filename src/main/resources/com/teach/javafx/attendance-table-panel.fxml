@@ -16,7 +16,7 @@
     <top>
         <HBox prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <FlowPane alignment="TOP_LEFT" prefHeight="51.0" prefWidth="195.0" BorderPane.alignment="CENTER">
+                <FlowPane alignment="TOP_LEFT" prefHeight="66.0" prefWidth="153.0" BorderPane.alignment="CENTER">
                     <children>
                         <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="添加">
                             <FlowPane.margin>
@@ -35,8 +35,8 @@
                         </Button>
                     </children>
                 </FlowPane>
-                <Pane prefHeight="66.0" prefWidth="108.0" HBox.hgrow="ALWAYS" />
-                <FlowPane alignment="TOP_RIGHT" prefHeight="66.0" prefWidth="325.0">
+                <Pane prefHeight="66.0" prefWidth="79.0" HBox.hgrow="ALWAYS" />
+                <FlowPane alignment="TOP_RIGHT" prefHeight="66.0" prefWidth="318.0">
                     <children>
                         <Label text="学生">
                             <FlowPane.margin>
