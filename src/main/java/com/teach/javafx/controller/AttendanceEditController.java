@@ -47,6 +47,8 @@ public class AttendanceEditController {
     public void initialize() {
         // 初始化DatePicker格式
         datePicker.setConverter(new LocalDateStringConverter());
+        //okButtonClick();
+        //cancelButtonClick();
     }
 
     @FXML
