@@ -58,6 +58,7 @@
                 <TableColumn fx:id="endDateColumn" prefWidth="120" text="结束时间" />
                 <TableColumn fx:id="daysColumn" prefWidth="60" text="天数" />
                 <TableColumn fx:id="statusColumn" prefWidth="80" text="状态" />
+                <TableColumn fx:id="teacherColumn" prefWidth="75.0" text="审批老师" />
             </columns>
         </TableView>
     </VBox>
@@ -89,8 +90,8 @@
 
                 <Label text="状态:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <ComboBox fx:id="statusComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="申请老师：" GridPane.rowIndex="4" />
-            <ComboBox fx:id="teacherComboBox" prefHeight="23.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="审批老师：" GridPane.rowIndex="4" />
+                <ComboBox fx:id="teacherComboBox" prefHeight="23.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <rowConstraints>
                <RowConstraints />
                <RowConstraints />
@@ -127,12 +128,12 @@
 
         <!-- 详细信息 -->
         <TitledPane expanded="true" prefHeight="123.0" prefWidth="530.0" text="详细信息" VBox.vgrow="ALWAYS">
-            <VBox prefHeight="233.0" prefWidth="528.0" spacing="10">
+            <VBox prefHeight="199.0" prefWidth="601.0" spacing="10">
                 <Label text="请假原因:" />
-                <TextArea fx:id="reasonField" prefHeight="22.0" prefRowCount="3" prefWidth="509.0" wrapText="true" />
+                <TextArea fx:id="reasonField" prefHeight="58.0" prefRowCount="3" prefWidth="582.0" wrapText="true" />
 
                 <Label text="审批意见:" />
-                <TextArea fx:id="approveCommentField" prefHeight="22.0" prefRowCount="2" prefWidth="509.0" wrapText="true" />
+                <TextArea fx:id="approveCommentField" prefHeight="74.0" prefRowCount="2" prefWidth="582.0" wrapText="true" />
             </VBox>
         </TitledPane>
     </VBox>

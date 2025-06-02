@@ -49,6 +49,8 @@ public class LeaveController extends ToolController {
     private TableColumn<Map, String> daysColumn;
     @FXML
     private TableColumn<Map, String> statusColumn;
+    @FXML
+    private TableColumn<Map,String> teacherColumn;
 
     // 编辑表单控件
     @FXML
@@ -92,6 +94,7 @@ public class LeaveController extends ToolController {
         endDateColumn.setCellValueFactory(new MapValueFactory<>("endDate"));
         daysColumn.setCellValueFactory(new MapValueFactory<>("days"));
         statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
+        teacherColumn.setCellValueFactory(new MapValueFactory<>("teacherId"));
 
         dataTableView.setItems(observableList);
 
@@ -135,9 +138,11 @@ public class LeaveController extends ToolController {
         // 状态下拉框
         List<OptionItem> statusList = new ArrayList<>();
         statusList.add(new OptionItem(1, "待审批", "待审批"));
-        statusList.add(new OptionItem(2, "已批准", "已批准"));
-        statusList.add(new OptionItem(3, "已拒绝", "已拒绝"));
+//        statusList.add(new OptionItem(2, "已批准", "已批准"));
+//        statusList.add(new OptionItem(3, "已拒绝", "已拒绝"));
         statusComboBox.setItems(FXCollections.observableArrayList(statusList));
+//        statusComboBox.getItems().clear();
+
 
         // 筛选用的状态（包含"全部"选项）
         List<OptionItem> filterStatusList = new ArrayList<>();
@@ -250,6 +255,10 @@ public class LeaveController extends ToolController {
                 statusComboBox.getSelectionModel().getSelectedItem() != null
                         ? statusComboBox.getSelectionModel().getSelectedItem().getValue()
                         : "待审批");
+        form.put("teacherId",
+                teacherComboBox.getSelectionModel().getSelectedItem() != null
+                        ? teacherComboBox.getSelectionModel().getSelectedItem().getValue()
+                        : "请选择");
 
         String daysText = daysField.getText().trim();
         if (!daysText.isEmpty()) {
@@ -471,6 +480,14 @@ public class LeaveController extends ToolController {
                 statusComboBox.getSelectionModel().select(item);
             }
         });
+
+        //设置老师
+        String teacher = CommonMethod.getString(data, "teacherId");
+        teacherComboBox.getItems().forEach(item -> {
+            if (item.getValue().equals(teacher)) {
+                teacherComboBox.getSelectionModel().select(item);
+            }
+        });
     }
 
     /**
@@ -481,6 +498,7 @@ public class LeaveController extends ToolController {
         studentComboBox.getSelectionModel().clearSelection();
         leaveTypeComboBox.getSelectionModel().clearSelection();
         statusComboBox.getSelectionModel().clearSelection();
+        teacherComboBox.getSelectionModel().clearSelection();
         startDatePicker.setValue(null);
         endDatePicker.setValue(null);
         daysField.clear();
