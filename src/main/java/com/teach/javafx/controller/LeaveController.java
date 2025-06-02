@@ -8,6 +8,7 @@ import com.teach.javafx.request.HttpRequestUtil;
 import com.teach.javafx.request.OptionItem;
 import com.teach.javafx.util.CommonMethod;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -74,6 +75,8 @@ public class LeaveController extends ToolController {
     private TextArea reasonField;
     @FXML
     private TextArea approveCommentField;
+    private ArrayList<Map> leaveList = new ArrayList();  // 请假信息列表数据
+
 
     private Integer leaveId = null;
     private ObservableList<Map> observableList = FXCollections.observableArrayList();
@@ -81,11 +84,39 @@ public class LeaveController extends ToolController {
         return teacherList;
     }
 
+
+
+    private void setTableViewData() {
+        observableList.clear();
+        /*for (int j = 0; j < teacherList.size(); j++) {
+            Map<String, Object> record = teacherList.get(j);
+
+            // 确保personId字段存在
+            if (record.containsKey("person_id") && !record.containsKey("personId")) {
+                record.put("personId", record.get("person_id"));
+            }
+
+            observableList.addAll(FXCollections.observableArrayList(record));
+        }*/
+        for (int j = 0; j < teacherList.size(); j++) {
+            observableList.addAll(FXCollections.observableArrayList(leaveList.get(j)));
+        }
+        dataTableView.setItems(observableList);
+    }
     /**
      * 页面初始化
      */
     @FXML
     public void initialize() {
+       /* DataResponse res;
+        DataRequest req = new DataRequest();
+        req.add("numName", null);
+        req.add("leaveType", null);
+        req.add("status", null);
+        res = HttpRequestUtil.request("/api/leave/getLeaveList", req); //从后台获取所有学生信息列表集合
+        if (res != null && res.getCode() == 0) {
+            leaveList = (ArrayList<Map>) res.getData();*/
+
         // 初始化表格列
         numColumn.setCellValueFactory(new MapValueFactory<>("num"));
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("studentName"));
@@ -97,6 +128,7 @@ public class LeaveController extends ToolController {
         teacherColumn.setCellValueFactory(new MapValueFactory<>("teacherId"));
 
         dataTableView.setItems(observableList);
+
 
         // 监听表格选择变化
         dataTableView.getSelectionModel().getSelectedItems().addListener(
@@ -118,9 +150,10 @@ public class LeaveController extends ToolController {
         onQueryButtonClick();
     }
 
-    /**
-     * 初始化下拉框
-     */
+
+        /**
+         * 初始化下拉框
+         */
     private void initializeComboBoxes() {
         // 请假类型下拉框
         List<OptionItem> leaveTypeList = new ArrayList<>();
@@ -152,7 +185,7 @@ public class LeaveController extends ToolController {
 
         //初始化老师下拉框
         DataRequest req =new DataRequest();
-        teacherList = HttpRequestUtil.requestOptionItemList("/api/teacher/getTeacherList",req); //从后台获取所有学生信息列表集合
+        teacherList = HttpRequestUtil.requestOptionItemList("/api/teacher/getTeacherOptionItemList",req); //从后台获取所有学生信息列表集合
         OptionItem item = new OptionItem(null,"0","请选择");
         teacherComboBox.getItems().addAll(item);
         teacherComboBox.getItems().addAll(teacherList);

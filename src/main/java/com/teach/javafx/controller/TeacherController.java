@@ -1,5 +1,6 @@
 package com.teach.javafx.controller;
 
+import com.teach.javafx.controller.base.LocalDateStringConverter;
 import com.teach.javafx.controller.base.MessageDialog;
 import com.teach.javafx.controller.base.ToolController;
 import com.teach.javafx.request.DataRequest;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -26,7 +28,6 @@ import java.util.Map;
  * TeacherController 教师管理控制类 对应 teacher-panel.fxml
  */
 public class TeacherController extends ToolController {
-
     @FXML
     private TableView<Map> dataTableView; // 教师信息表
     @FXML
@@ -64,6 +65,7 @@ public class TeacherController extends ToolController {
     @FXML
     private TextField numNameTextField; // 查询 编号姓名输入域
 
+
     private Integer personId = null; // 当前编辑修改的教师的主键
     private ArrayList<Map> teacherList = new ArrayList<>(); // 教师信息列表数据
     private List<OptionItem> genderList; // 性别选择列表数据
@@ -74,7 +76,7 @@ public class TeacherController extends ToolController {
      */
     private void setTableViewData() {
         observableList.clear();
-        for (int j = 0; j < teacherList.size(); j++) {
+        /*for (int j = 0; j < teacherList.size(); j++) {
             Map<String, Object> record = teacherList.get(j);
 
             // 确保personId字段存在
@@ -83,6 +85,9 @@ public class TeacherController extends ToolController {
             }
 
             observableList.addAll(FXCollections.observableArrayList(record));
+        }*/
+        for (int j = 0; j < teacherList.size(); j++) {
+            observableList.addAll(FXCollections.observableArrayList(teacherList.get(j)));
         }
         dataTableView.setItems(observableList);
     }
@@ -92,6 +97,13 @@ public class TeacherController extends ToolController {
      */
     @FXML
     public void initialize() {
+        DataResponse res;
+        DataRequest req = new DataRequest();
+        req.add("name", null);
+        res = HttpRequestUtil.request("/api/teacher/getTeacherList", req); //从后台获取所有学生信息列表集合
+        if (res != null && res.getCode() == 0) {
+            teacherList = (ArrayList<Map>) res.getData();
+        }
         // 初始化表格列
         numColumn.setCellValueFactory(new MapValueFactory<>("num"));
         nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
@@ -115,6 +127,8 @@ public class TeacherController extends ToolController {
         // 初始化教师列表数据
         onQueryButtonClick();
     }
+
+
 
     /**
      * 初始化性别下拉列表
@@ -205,9 +219,9 @@ public class TeacherController extends ToolController {
      */
     @FXML
     protected void onQueryButtonClick() {
-        String numName = numNameTextField.getText();
+        String name = numNameTextField.getText();
         DataRequest req = new DataRequest();
-        req.add("numName", numName);
+        req.add("name", name);
         DataResponse res = HttpRequestUtil.request("/api/teacher/getTeacherList", req);
 
         if (res != null && res.getCode() == 0) {
