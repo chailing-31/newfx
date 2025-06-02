@@ -108,46 +108,47 @@ public class LeaveController extends ToolController {
      */
     @FXML
     public void initialize() {
-       /* DataResponse res;
+        DataResponse res;
         DataRequest req = new DataRequest();
         req.add("numName", null);
         req.add("leaveType", null);
         req.add("status", null);
         res = HttpRequestUtil.request("/api/leave/getLeaveList", req); //从后台获取所有学生信息列表集合
         if (res != null && res.getCode() == 0) {
-            leaveList = (ArrayList<Map>) res.getData();*/
+            leaveList = (ArrayList<Map>) res.getData();
 
-        // 初始化表格列
-        numColumn.setCellValueFactory(new MapValueFactory<>("num"));
-        studentNameColumn.setCellValueFactory(new MapValueFactory<>("studentName"));
-        leaveTypeColumn.setCellValueFactory(new MapValueFactory<>("leaveType"));
-        startDateColumn.setCellValueFactory(new MapValueFactory<>("startDate"));
-        endDateColumn.setCellValueFactory(new MapValueFactory<>("endDate"));
-        daysColumn.setCellValueFactory(new MapValueFactory<>("days"));
-        statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
-        teacherColumn.setCellValueFactory(new MapValueFactory<>("teacherId"));
+            // 初始化表格列
+            numColumn.setCellValueFactory(new MapValueFactory<>("num"));
+            studentNameColumn.setCellValueFactory(new MapValueFactory<>("studentName"));
+            leaveTypeColumn.setCellValueFactory(new MapValueFactory<>("leaveType"));
+            startDateColumn.setCellValueFactory(new MapValueFactory<>("startDate"));
+            endDateColumn.setCellValueFactory(new MapValueFactory<>("endDate"));
+            daysColumn.setCellValueFactory(new MapValueFactory<>("days"));
+            statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
+            teacherColumn.setCellValueFactory(new MapValueFactory<>("teacherId"));
 
-        dataTableView.setItems(observableList);
+            dataTableView.setItems(observableList);
 
 
-        // 监听表格选择变化
-        dataTableView.getSelectionModel().getSelectedItems().addListener(
-                (javafx.collections.ListChangeListener<Map>) change -> {
-                    while (change.next()) {
-                        if (change.wasAdded() && !change.getAddedSubList().isEmpty()) {
-                            Map selectedItem = change.getAddedSubList().get(0);
-                            if (selectedItem != null) {
-                                leaveId = CommonMethod.getInteger(selectedItem, "leaveId");
-                                showLeaveDetails();
+            // 监听表格选择变化
+            dataTableView.getSelectionModel().getSelectedItems().addListener(
+                    (javafx.collections.ListChangeListener<Map>) change -> {
+                        while (change.next()) {
+                            if (change.wasAdded() && !change.getAddedSubList().isEmpty()) {
+                                Map selectedItem = change.getAddedSubList().get(0);
+                                if (selectedItem != null) {
+                                    leaveId = CommonMethod.getInteger(selectedItem, "leaveId");
+                                    showLeaveDetails();
+                                }
                             }
                         }
-                    }
-                });
+                    });
 
-        // 初始化下拉框
-        initializeComboBoxes();
-        loadStudentList();
-        onQueryButtonClick();
+            // 初始化下拉框
+            initializeComboBoxes();
+            loadStudentList();
+            //onQueryButtonClick();
+        }
     }
 
 
