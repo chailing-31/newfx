@@ -169,26 +169,26 @@ public class AttendanceTableController {
      * 获取考勤状态列表
      */
 
-    public static List<OptionItem> getStatusList() {
-//          if (statusList == null) {
-////            // 从后台获取考勤状态列表
-////            System.out.println("开始请求考勤状态列表...");
-////            DataRequest req = new DataRequest();
-////            statusList = HttpRequestUtil.requestOptionItemList("/api/attendance/status-options", req);//            System.out.println("请求结果：" + (statusList != null ? "成功，获取到 " + statusList.size() + " 条记录" : "失败"));
-           if (statusList == null) {
-                statusList = new ArrayList<>();
-                statusList.add(new OptionItem(null,"PRESENT", "出勤")); // PRESENT
-                statusList.add(new OptionItem( null,"ABSENT", "缺勤")); // ABSENT
-                statusList.add(new OptionItem( null,"LATE", "迟到")); // LATE
-                statusList.add(new OptionItem(null, "LEAVE", "请假")); // LEAVE
-                statusList.add(new OptionItem( null,"EARLY_LEAVE", "早退")); // EARLY_LEAVE
-            }
-////        }
-        if (statusList == null) {
-            statusList = AttendanceStatus.toOptionItems();
-        }
-        return statusList;
-    }
+//    public static List<OptionItem> getStatusList() {
+////          if (statusList == null) {
+//////            // 从后台获取考勤状态列表
+//////            System.out.println("开始请求考勤状态列表...");
+//////            DataRequest req = new DataRequest();
+//////            statusList = HttpRequestUtil.requestOptionItemList("/api/attendance/status-options", req);//            System.out.println("请求结果：" + (statusList != null ? "成功，获取到 " + statusList.size() + " 条记录" : "失败"));
+//           if (statusList == null) {
+//                statusList = new ArrayList<>();
+//                statusList.add(new OptionItem(null,"PRESENT", "出勤")); // PRESENT
+//                statusList.add(new OptionItem( null,"ABSENT", "缺勤")); // ABSENT
+//                statusList.add(new OptionItem( null,"LATE", "迟到")); // LATE
+//                statusList.add(new OptionItem(null, "LEAVE", "请假")); // LEAVE
+//                statusList.add(new OptionItem( null,"EARLY_LEAVE", "早退")); // EARLY_LEAVE
+//            }
+//////        }
+//        if (statusList == null) {
+//            statusList = AttendanceStatus.toOptionItems();
+//        }
+//        return statusList;
+//    }
 
 //    // 修改后的getStatusList方法（在AttendanceTableController.java中）
 //    public static List<OptionItem> getStatusList() {
@@ -197,6 +197,13 @@ public class AttendanceTableController {
 //        }
 //        return statusList;
 //    }
+
+    public static List<OptionItem> getStatusList() {
+        if (statusList == null) {
+            statusList = AttendanceStatus.toOptionItems();
+        }
+        return statusList;
+    }
     
     /**
      * 初始化下拉框
@@ -315,17 +322,16 @@ public class AttendanceTableController {
         // 初始化下拉框
         initComboBox();
 
-        // 从后台获取学生列表
-        System.out.println("开始请求学生列表...");
-        DataRequest req = new DataRequest();
-        studentList = HttpRequestUtil.requestOptionItemList("/api/volunteer/getStudentItemOptionList", req);
-        System.out.println("请求结果：" + (studentList != null ? "成功，获取到 " + studentList.size() + " 条记录" : "失败"));
-    
-        // 如果获取失败，初始化为空列表而不是 null
-        if (studentList == null) {
-            studentList = new ArrayList<>();
-            System.out.println("警告：无法获取学生列表，使用空列表代替");
-        }
+//        // 从后台获取学生列表
+//        System.out.println("开始请求学生列表...");
+//        DataRequest req = new DataRequest();
+//        studentList = HttpRequestUtil.requestOptionItemList("/api/volunteer/getStudentItemOptionList", req);
+//        System.out.println("请求结果：" + (studentList != null ? "成功，获取到 " + studentList.size() + " 条记录" : "失败"));
+//        // 如果获取失败，初始化为空列表而不是 null
+//        if (studentList == null) {
+//            studentList = new ArrayList<>();
+//            System.out.println("警告：无法获取学生列表，使用空列表代替");
+//        }
 
         // 创建考勤状态列表（基于枚举）
         statusList = AttendanceStatus.toOptionItems();
@@ -344,12 +350,12 @@ public class AttendanceTableController {
         remarkColumn.setCellValueFactory(new MapValueFactory<>("remark"));
         editColumn.setCellValueFactory(new MapValueFactory<>("edit"));
 
-        // 初始化下拉框
-        OptionItem item = new OptionItem(null,"0","请选择");
-        studentComboBox.getItems().add(item);
-        studentComboBox.getItems().addAll(studentList);
-        statusComboBox.getItems().add(item);
-        statusComboBox.getItems().addAll(statusList);
+//        // 初始化下拉框
+//        OptionItem item = new OptionItem(null,"0","请选择");
+//        studentComboBox.getItems().add(item);
+//        studentComboBox.getItems().addAll(studentList);
+//        statusComboBox.getItems().add(item);
+//        statusComboBox.getItems().addAll(statusList);
         
         dataTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         onQueryButtonClick();
