@@ -147,7 +147,7 @@ public class AttendanceTableController {
             return title;
         }
 
-        public static AttendanceStatus fromValue(String value) {
+        /*public static AttendanceStatus fromValue(String value) {
             for (AttendanceStatus status : values()) {
                 if (status.value.equals(value)) {
                     return status;
@@ -162,7 +162,7 @@ public class AttendanceTableController {
                 items.add(new OptionItem(status.value, status.title));
             }
             return items;
-        }
+       }*/
     }
 
     /**
@@ -184,9 +184,9 @@ public class AttendanceTableController {
                 statusList.add(new OptionItem( null,"EARLY_LEAVE", "早退")); // EARLY_LEAVE
             }
 ////        }
-        if (statusList == null) {
+        /*if (statusList == null) {
             statusList = AttendanceStatus.toOptionItems();
-        }
+        }*/
         return statusList;
     }
 
@@ -313,7 +313,7 @@ public class AttendanceTableController {
         observableList = FXCollections.observableArrayList();
 
         // 初始化下拉框
-        initComboBox();
+        //initComboBox();
 
         // 从后台获取学生列表
         System.out.println("开始请求学生列表...");
@@ -328,7 +328,7 @@ public class AttendanceTableController {
         }
 
         // 创建考勤状态列表（基于枚举）
-        statusList = AttendanceStatus.toOptionItems();
+        statusList = getStatusList() ;
 //        statusList.add(new OptionItem(null, "1", "出勤")); // PRESENT
 //        statusList.add(new OptionItem(null, "2", "缺勤")); // ABSENT
 //        statusList.add(new OptionItem(null, "3", "迟到")); // LATE
@@ -538,7 +538,7 @@ public class AttendanceTableController {
         // 保存数据
         DataRequest req = new DataRequest();
         req.add("personId", personId);
-        req.add("status", status);
+        //req.add("status", status);
         req.add("date", CommonMethod.getString(data, "date"));
         req.add("remark", CommonMethod.getString(data, "remark"));
 
