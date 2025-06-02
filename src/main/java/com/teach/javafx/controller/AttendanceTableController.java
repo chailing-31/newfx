@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.teach.javafx.MainApplication;
+import com.teach.javafx.controller.base.LocalDateStringConverter;
 import com.teach.javafx.controller.base.MessageDialog;
 import com.teach.javafx.request.DataRequest;
 import com.teach.javafx.request.DataResponse;
@@ -18,12 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -58,7 +54,7 @@ public class AttendanceTableController {
     @FXML
     private TextField classField; //班级输入框
     @FXML
-    private TextField dateField; // 日期输入框
+    private DatePicker dateField; // 日期选择器
 
     private AttendanceEditController attendanceEditController = null;  // 编辑对话框控制器
     private Stage stage = null;  // 编辑对话框舞台
@@ -234,14 +230,14 @@ public class AttendanceTableController {
         Integer personId = 0;
         String status = "";
         String date = "";
-        String classId = "";
+        String className = "";
 
-        if (dateField != null) {
-            date = dateField.getText();
+        if (dateField != null && dateField.getValue() != null) {
+            date = dateField.getValue().toString();
         }
 
         if(classField != null){
-            classId = classField.getText();
+            className = classField.getText();
         }
 
         if (studentComboBox != null && studentComboBox.getSelectionModel().getSelectedItem() != null) {
@@ -262,7 +258,7 @@ public class AttendanceTableController {
         DataRequest req = new DataRequest();
         req.add("personId", personId);
         req.add("status", status);
-        req.add("classId", classId);
+        req.add("className", className);
         req.add("date", date);
         //发送请求到后端
         DataResponse res = HttpRequestUtil.request("/api/attendance/class", req);
@@ -345,11 +341,12 @@ public class AttendanceTableController {
         studentNumColumn.setCellValueFactory(new MapValueFactory<>("studentNum"));
         studentNameColumn.setCellValueFactory(new MapValueFactory<>("studentName"));
         classNameColumn.setCellValueFactory(new MapValueFactory<>("className"));
-        dateColumn.setCellValueFactory(new MapValueFactory<>("dateNum"));
+        dateColumn.setCellValueFactory(new MapValueFactory<>("date"));
         statusColumn.setCellValueFactory(new MapValueFactory<>("statusName"));
         remarkColumn.setCellValueFactory(new MapValueFactory<>("remark"));
         editColumn.setCellValueFactory(new MapValueFactory<>("edit"));
 
+        dateField.setConverter(new LocalDateStringConverter());
 //        // 初始化下拉框
 //        OptionItem item = new OptionItem(null,"0","请选择");
 //        studentComboBox.getItems().add(item);
@@ -367,7 +364,7 @@ public class AttendanceTableController {
 
     public void refreshAttendanceList() {
         classField.setText(""); // 清空搜索条件
-        dateField.setText("");
+//        dateField.setText("");
         onQueryButtonClick();
     }
 

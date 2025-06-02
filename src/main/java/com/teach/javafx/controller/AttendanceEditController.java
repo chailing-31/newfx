@@ -1,11 +1,15 @@
 package com.teach.javafx.controller;
 
+import com.teach.javafx.controller.base.LocalDateStringConverter;
+import com.teach.javafx.controller.base.MessageDialog;
 import com.teach.javafx.request.OptionItem;
 import com.teach.javafx.util.CommonMethod;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +29,9 @@ public class AttendanceEditController {
     private List<OptionItem> studentList; // 下拉学生列表
 
     @FXML
-    private TextField dateField;
+    private DatePicker datePicker;
+//    @FXML
+//    private TextField dateField;
 
     @FXML
     private ComboBox<OptionItem> statusComboBox; // 考勤状态下拉框
@@ -39,10 +45,9 @@ public class AttendanceEditController {
 
     @FXML
     public void initialize() {
-        // 初始化方法
+        // 初始化DatePicker格式
+        datePicker.setConverter(new LocalDateStringConverter());
     }
-
-
 
     @FXML
     public void okButtonClick() {
@@ -55,14 +60,30 @@ public class AttendanceEditController {
             data.put("personId",Integer.parseInt(op.getValue()));
         }
 
+//        // 获取选中的状态
+//        op = statusComboBox.getSelectionModel().getSelectedItem();
+//        if(op != null) {
+//            data.put("status", op.getValue().toString()); // 直接使用字符串值
+//        }
+
         // 获取选中的状态
         op = statusComboBox.getSelectionModel().getSelectedItem();
         if(op != null) {
-            data.put("status", op.getValue().toString()); // 直接使用字符串值
+            // 使用枚举名称而不是自定义值
+            // 假设OptionItem的value存储的是枚举名称（如"PRESENT"）
+            data.put("status", op.getValue());
         }
 
 //        data.put("attendanceId", attendanceId);
-        data.put("date", dateField.getText());
+//        data.put("date", dateField.getText());
+        // 获取日期
+        LocalDate date = datePicker.getValue();
+        if (date == null) {
+            MessageDialog.showDialog("请选择日期");
+            return;
+        }
+        data.put("date", date.toString()); // 使用LocalDate的toString方法获取yyyy-MM-dd格式的日期
+
         data.put("remark", remarkField.getText());
 
         attendanceTableController.doClose("ok", data);
@@ -105,24 +126,37 @@ public class AttendanceEditController {
     }
 
     public void showDialog(Map data) {
-            // 确保列表已初始化
-            if (studentList == null || statusList == null) {
-                init();
-            }
+        // 确保列表已初始化
+        if (studentList == null || statusList == null) {
+            init();
+        }
 
         if(data == null) {
 //            attendanceId = null;
             studentComboBox.getSelectionModel().select(-1);
             statusComboBox.getSelectionModel().select(-1);
             studentComboBox.setDisable(false);
-            dateField.setText("");
+            datePicker.setValue(LocalDate.now()); // 设置为当前日期
             remarkField.setText("");
         } else {
 //            attendanceId = CommonMethod.getInteger(data, "attendanceId");
             studentComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(studentList, CommonMethod.getString(data, "personId")));
             statusComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(statusList, CommonMethod.getString(data, "status")));
             studentComboBox.setDisable(true);
-            dateField.setText(CommonMethod.getString(data, "dateNum"));
+
+//            dateField.setText(CommonMethod.getString(data, "date"));
+            // 设置日期
+            String dateStr = CommonMethod.getString(data, "date");
+            if (dateStr != null && !dateStr.isEmpty()) {
+                try {
+                    datePicker.setValue(LocalDate.parse(dateStr));
+                } catch (Exception e) {
+                    System.out.println("日期格式错误: " + dateStr);
+                    datePicker.setValue(LocalDate.now());
+                }
+            } else {
+                datePicker.setValue(LocalDate.now());
+            }
             remarkField.setText(CommonMethod.getString(data, "remark"));
         }
     }
