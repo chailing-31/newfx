@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.5734824281150159" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.LeaveController">
+<SplitPane dividerPositions="0.5838658146964856" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.LeaveController">
     <!-- 左侧：列表和查询 -->
     <VBox prefHeight="570.0" prefWidth="746.0" spacing="10">
         <padding>
