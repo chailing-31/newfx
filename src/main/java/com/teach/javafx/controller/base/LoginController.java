@@ -25,6 +25,21 @@ public class LoginController {
     private VBox vbox;
     @FXML
     private Button loginButton;
+    @FXML
+    private Button studentLoginButton;
+    @FXML
+    private Button teacherLoginButton;
+
+//    @FXML
+//    protected void onStudentLoginClick() {
+//        loadAndSwitchScene("student/student-view.fxml", "学生系统");
+//    }
+//
+//    @FXML
+//    protected void onTeacherLoginClick() {
+//        loadAndSwitchScene("teacher/teacher-view.fxml", "教师系统");
+//    }
+
     /**
      * 页面加载对象创建完成初始话方法，页面中控件属性的设置，初始数据显示等初始操作都在这里完成，其他代码都事件处理方法里
      */
@@ -62,4 +77,17 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+//
+//    /**
+//     * 通用方法：加载FXML并切换场景
+//     */
+//    private void loadAndSwitchScene(String fxmlPath, String title) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("base/main-frame.fxml"));
+//            Scene scene = new Scene(loader.load());
+//            MainApplication.resetStage(title, scene);
+//        } catch (IOException e) {
+//            MessageDialog.showDialog("加载页面失败: " + e.getMessage());
+//        }
+//    }
 }
