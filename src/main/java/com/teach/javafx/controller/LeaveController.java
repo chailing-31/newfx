@@ -64,7 +64,6 @@ public class LeaveController extends ToolController {
     private ComboBox<OptionItem> statusComboBox;
     @FXML
     private ComboBox<OptionItem> teacherComboBox;
-    private List<OptionItem> teacherList;
     @FXML
     private DatePicker startDatePicker;
     @FXML
@@ -75,18 +74,14 @@ public class LeaveController extends ToolController {
     private TextArea reasonField;
     @FXML
     private TextArea approveCommentField;
-    private ArrayList<Map> leaveList = new ArrayList();  // 请假信息列表数据
 
-
+    private List<OptionItem> teacherList;
     private Integer leaveId = null;
     private ObservableList<Map> observableList = FXCollections.observableArrayList();
-    public List<OptionItem> getTeacherList() {
-        return teacherList;
-    }
 
 
 
-    private void setTableViewData() {
+    /*private void setTableViewData() {
         observableList.clear();
         /*for (int j = 0; j < teacherList.size(); j++) {
             Map<String, Object> record = teacherList.get(j);
@@ -98,24 +93,24 @@ public class LeaveController extends ToolController {
 
             observableList.addAll(FXCollections.observableArrayList(record));
         }*/
-        for (int j = 0; j < teacherList.size(); j++) {
+        /*for (int j = 0; j < teacherList.size(); j++) {
             observableList.addAll(FXCollections.observableArrayList(leaveList.get(j)));
         }
         dataTableView.setItems(observableList);
-    }
+    }*/
     /**
      * 页面初始化
      */
     @FXML
     public void initialize() {
-        DataResponse res;
+        /*DataResponse res;
         DataRequest req = new DataRequest();
         req.add("numName", null);
         req.add("leaveType", null);
         req.add("status", null);
         res = HttpRequestUtil.request("/api/leave/getLeaveList", req); //从后台获取所有学生信息列表集合
         if (res != null && res.getCode() == 0) {
-            leaveList = (ArrayList<Map>) res.getData();
+            leaveList = (ArrayList<Map>) res.getData();*/
 
             // 初始化表格列
             numColumn.setCellValueFactory(new MapValueFactory<>("num"));
@@ -147,9 +142,9 @@ public class LeaveController extends ToolController {
             // 初始化下拉框
             initializeComboBoxes();
             loadStudentList();
-            //onQueryButtonClick();
-        }
+            onQueryButtonClick();
     }
+
 
 
         /**
@@ -172,10 +167,10 @@ public class LeaveController extends ToolController {
         // 状态下拉框
         List<OptionItem> statusList = new ArrayList<>();
         statusList.add(new OptionItem(1, "待审批", "待审批"));
-//        statusList.add(new OptionItem(2, "已批准", "已批准"));
-//        statusList.add(new OptionItem(3, "已拒绝", "已拒绝"));
+        statusList.add(new OptionItem(2, "已批准", "已批准"));
+        statusList.add(new OptionItem(3, "已拒绝", "已拒绝"));
         statusComboBox.setItems(FXCollections.observableArrayList(statusList));
-//        statusComboBox.getItems().clear();
+        //statusComboBox.getItems().clear();
 
 
         // 筛选用的状态（包含"全部"选项）
@@ -237,7 +232,7 @@ public class LeaveController extends ToolController {
         DataResponse res = HttpRequestUtil.request("/api/leave/getLeaveList", req);
         if (res != null && res.getCode() == 0) {
             observableList.clear();
-            List<Map<String, Object>> dataList = (List<Map<String, Object>>) res.getData();
+            List<Map<String, Object>> dataList =  (List<Map<String, Object>>)res.getData();
             if (dataList != null && !dataList.isEmpty()) {
                 observableList.addAll(dataList);
             }
