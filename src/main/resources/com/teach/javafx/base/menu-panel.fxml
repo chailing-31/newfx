@@ -98,7 +98,7 @@
                        </children>
                    </GridPane>
                    <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="36.0">
-                       <Button onAction="#onSubmitButtonClick" text="保存" />
+                       <Button onAction="#onSubmitButtonClick" text="保存" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
                    </FlowPane>
                </VBox>
            </items>

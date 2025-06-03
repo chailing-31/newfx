@@ -15,8 +15,8 @@
                     <children>
                         <Label text="编号/名称：" />
                         <TextField fx:id="numNameTextField" promptText="请输入竞赛编号或名称进行查询" prefWidth="200" />
-                        <Button onAction="#onQueryButtonClick" text="查询" />
-                        <Button text="刷新" onAction="#onQueryButtonClick" />
+                        <Button onAction="#onQueryButtonClick" text="查询" style="-fx-background-color: #5698c3; -fx-text-fill: white;"/>
+                        <Button text="刷新" onAction="#onQueryButtonClick" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -26,9 +26,9 @@
                 <!-- 操作按钮区域 -->
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <children>
-                        <Button onAction="#onAddButtonClick" text="新建" />
-                        <Button onAction="#onSaveButtonClick" text="保存" />
-                        <Button onAction="#onDeleteButtonClick" text="删除" />
+                        <Button onAction="#onAddButtonClick" text="新建" style="-fx-background-color: #61ac85; -fx-text-fill: white;"/>
+                        <Button onAction="#onSaveButtonClick" text="保存" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                        <Button onAction="#onDeleteButtonClick" text="删除" style="-fx-background-color: #c04851; -fx-text-fill: white;"/>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -6,7 +6,7 @@
 
 <!-- 活动管理界面 FXML配置文件 对应页面交互控制类 com.teach.javafx.controller.ActivityController -->
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            style="-fx-background-image: url('shanda1.jpg'); -fx-background-repeat: no-repeat; -fx-background-size: cover;" fx:controller="com.teach.javafx.controller.ActivityController">
+            style=" -fx-background-repeat: no-repeat; -fx-background-size: cover;" fx:controller="com.teach.javafx.controller.ActivityController">
 
     <!-- 顶部查询区域 -->
     <top>
@@ -20,8 +20,8 @@
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label text="活动编号/名称:" style="-fx-font-weight: bold;"/>
                 <TextField fx:id="numNameTextField" promptText="请输入活动编号或名称进行查询" prefWidth="200"/>
-                <Button text="查询" onAction="#onQueryButtonClick" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-                <Button text="刷新" onAction="#refreshActivityList" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                <Button text="查询" onAction="#onQueryButtonClick" style="-fx-background-color: #5698c3; -fx-text-fill: white;"/>
+                <Button text="刷新" onAction="#refreshActivityList" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
             </HBox>
         </VBox>
     </top>
@@ -105,7 +105,7 @@
                         <VBox spacing="10">
                             <Label text="操作" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
                             <HBox spacing="10">
-                                <Button text="新建" onAction="#onAddButtonClick" prefWidth="80" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                                <Button text="新建" onAction="#onAddButtonClick" prefWidth="80" style="-fx-background-color: #61ac85; -fx-text-fill: white;"/>
                                 <Button text="保存" onAction="#onSaveButtonClick" prefWidth="80" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
                                 <Button text="删除" onAction="#onDeleteButtonClick" prefWidth="80" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
                             </HBox>

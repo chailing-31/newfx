@@ -25,15 +25,15 @@
             <Label text="状态:" />
             <ComboBox fx:id="statusFilterComboBox" prefWidth="100" />
 
-            <Button fx:id="queryButton" onAction="#onQueryButtonClick" text="查询" />
-            <Button fx:id="refreshButton" onAction="#onQueryButtonClick" text="刷新" />
+            <Button fx:id="queryButton" onAction="#onQueryButtonClick" text="查询" style="-fx-background-color: #5698c3; -fx-text-fill: white;"/>
+            <Button fx:id="refreshButton" onAction="#onQueryButtonClick" text="刷新" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
         </HBox>
 
         <!-- 操作按钮 -->
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Button fx:id="addButton" onAction="#onAddButtonClick" text="新建" />
-            <Button fx:id="saveButton" onAction="#onSaveButtonClick" text="保存" />
-            <Button fx:id="deleteButton" onAction="#onDeleteButtonClick" text="删除" />
+            <Button fx:id="addButton" onAction="#onAddButtonClick" text="新建" style="-fx-background-color: #61ac85; -fx-text-fill: white;"/>
+            <Button fx:id="saveButton" onAction="#onSaveButtonClick" text="保存" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+            <Button fx:id="deleteButton" onAction="#onDeleteButtonClick" text="删除" style="-fx-background-color: #c04851; -fx-text-fill: white;"/>
         </HBox>
 
         <!-- 数据表格 -->
