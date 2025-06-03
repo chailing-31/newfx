@@ -25,10 +25,10 @@ public class LoginController {
     private VBox vbox;
     @FXML
     private Button loginButton;
-    @FXML
-    private Button studentLoginButton;
-    @FXML
-    private Button teacherLoginButton;
+//    @FXML
+//    private Button studentLoginButton;
+//    @FXML
+//    private Button teacherLoginButton;
 
 //    @FXML
 //    protected void onStudentLoginClick() {

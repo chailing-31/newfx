@@ -57,8 +57,8 @@
      </rowConstraints>
       <children>
           <Button fx:id="loginButton" alignment="CENTER" onAction="#onLoginButtonClick" text="管理员登录" GridPane.columnIndex="1" />
-         <Button fx:id="studentLoginButton" mnemonicParsing="false" text="学生登录" />
-         <Button fx:id="teacherLoginButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="77.0" text="教师登录" textAlignment="CENTER" GridPane.columnIndex="2" />
+<!--         <Button fx:id="studentLoginButton" mnemonicParsing="false" text="学生登录" />-->
+<!--         <Button fx:id="teacherLoginButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="77.0" text="教师登录" textAlignment="CENTER" GridPane.columnIndex="2" />-->
       </children>
    </GridPane>
 </VBox>
