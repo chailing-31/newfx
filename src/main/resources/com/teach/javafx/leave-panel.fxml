@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.LeaveController">
+<SplitPane dividerPositions="0.5734824281150159" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.LeaveController">
     <!-- 左侧：列表和查询 -->
     <VBox prefHeight="570.0" prefWidth="746.0" spacing="10">
         <padding>
@@ -27,7 +27,7 @@
         <!-- 查询条件 -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label text="编号/姓名:" />
-            <TextField fx:id="numNameTextField" prefWidth="200" promptText="请输入请假编号或学生姓名" />
+            <TextField fx:id="numNameTextField" prefHeight="23.0" prefWidth="169.0" promptText="请输入请假编号或学生姓名" />
             
             <Label text="请假类型:" />
             <ComboBox fx:id="leaveTypeFilterComboBox" prefWidth="120" />
@@ -35,15 +35,15 @@
             <Label text="状态:" />
             <ComboBox fx:id="statusFilterComboBox" prefWidth="120" />
             
-            <Button fx:id="queryButton" onAction="#onQueryButtonClick" text="查询" style="-fx-background-color: #5698c3; -fx-text-fill: white;"/>
-            <Button fx:id="refreshButton" onAction="#onQueryButtonClick" text="刷新" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+            <Button fx:id="queryButton" onAction="#onQueryButtonClick" style="-fx-background-color: #5698c3; -fx-text-fill: white;" text="查询" />
+            <Button fx:id="refreshButton" onAction="#onQueryButtonClick" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="刷新" />
         </HBox>
 
         <!-- 操作按钮 -->
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Button fx:id="addButton" onAction="#onAddButtonClick" text="新建" style="-fx-background-color: #61ac85; -fx-text-fill: white;"/>
-            <Button fx:id="saveButton" onAction="#onSaveButtonClick" text="保存" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-            <Button fx:id="deleteButton" onAction="#onDeleteButtonClick" text="删除" style="-fx-background-color: #c04851; -fx-text-fill: white;"/>
+            <Button fx:id="addButton" onAction="#onAddButtonClick" style="-fx-background-color: #61ac85; -fx-text-fill: white;" text="新建" />
+            <Button fx:id="saveButton" onAction="#onSaveButtonClick" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="保存" />
+            <Button fx:id="deleteButton" onAction="#onDeleteButtonClick" style="-fx-background-color: #c04851; -fx-text-fill: white;" text="删除" />
             <Button fx:id="approveButton" onAction="#onApproveButtonClick" text="批准" />
             <Button fx:id="rejectButton" onAction="#onRejectButtonClick" text="拒绝" />
         </HBox>
