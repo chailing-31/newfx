@@ -142,6 +142,7 @@ public class HonorController extends ToolController {
         honorLevelList.add(new OptionItem(3, "二等奖", "二等奖"));
         honorLevelList.add(new OptionItem(4, "三等奖", "三等奖"));
         honorLevelList.add(new OptionItem(5, "优秀奖", "优秀奖"));
+        honorLevelList.add(new OptionItem(6,"其他","其他"));
         honorLevelComboBox.setItems(FXCollections.observableArrayList(honorLevelList));
 
         // 筛选用的荣誉等级（包含"全部"选项）

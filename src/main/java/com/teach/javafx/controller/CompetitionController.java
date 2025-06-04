@@ -119,6 +119,7 @@ public class CompetitionController extends ToolController {
         typeList.add(new OptionItem(1, "编程竞赛", "编程竞赛"));
         typeList.add(new OptionItem(2, "数学竞赛", "数学竞赛"));
         typeList.add(new OptionItem(3, "创新竞赛", "创新竞赛"));
+        typeList.add(new OptionItem(4,"其他","其他"));
         typeComboBox.setItems(FXCollections.observableArrayList(typeList));
 
         // 竞赛状态下拉框
