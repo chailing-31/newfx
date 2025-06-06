@@ -221,7 +221,7 @@ public class TeacherController extends ToolController {
     protected void onQueryButtonClick() {
         String name = numNameTextField.getText();
         DataRequest req = new DataRequest();
-        req.add("name", name);
+        req.add("numName", name);
         DataResponse res = HttpRequestUtil.request("/api/teacher/getTeacherList", req);
 
         if (res != null && res.getCode() == 0) {

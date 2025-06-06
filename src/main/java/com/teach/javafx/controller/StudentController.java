@@ -142,7 +142,9 @@ public class StudentController extends ToolController {
         TableView.TableViewSelectionModel<Map> tsm = dataTableView.getSelectionModel();
         ObservableList<Integer> list = tsm.getSelectedIndices();
         list.addListener(this::onTableRowSelect);
+
         setTableViewData();
+
         genderList = HttpRequestUtil.getDictionaryOptionItemList("XBM");
 
         genderComboBox.getItems().addAll(genderList);
@@ -249,7 +251,14 @@ public class StudentController extends ToolController {
         if(res!= null) {
             if (res.getCode() == 0) {
                 MessageDialog.showDialog("删除成功！");
-                onQueryButtonClick();
+                String numName = numNameTextField.getText();
+                DataRequest re = new DataRequest();
+                re.add("numName", "");
+                DataResponse response = HttpRequestUtil.request("/api/student/getStudentList", re);
+                if (response != null && res.getCode() == 0) {
+                    studentList = (ArrayList<Map>) response.getData();
+                    setTableViewData();
+                }
             } else {
                 MessageDialog.showDialog(res.getMsg());
             }
@@ -285,8 +294,14 @@ public class StudentController extends ToolController {
         if (res.getCode() == 0) {
             personId = CommonMethod.getIntegerFromObject(res.getData());
             MessageDialog.showDialog("提交成功！");
-            onQueryButtonClick();
-        } else {
+            String numName = numNameTextField.getText();
+            DataRequest re = new DataRequest();
+            re.add("numName", "");
+            DataResponse response = HttpRequestUtil.request("/api/student/getStudentList", re);
+            if (response != null && response.getCode() == 0) {
+                studentList = (ArrayList<Map>) response.getData();
+                setTableViewData();
+            }        } else {
             MessageDialog.showDialog(res.getMsg());
         }
     }
