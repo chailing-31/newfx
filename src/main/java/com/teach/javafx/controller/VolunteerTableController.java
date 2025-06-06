@@ -48,7 +48,7 @@ public class VolunteerTableController {
     @FXML
     private TableColumn<Map, Button> editColumn;
 
-    private ArrayList<Map> volunteerList = new ArrayList();  // 志愿活动信息列表数据
+    private ArrayList<Map> volunteerList = new ArrayList();  // 社会实践信息列表数据
     private ObservableList<Map> observableList= FXCollections.observableArrayList();  // TableView渲染列表
 
     @FXML
@@ -83,7 +83,7 @@ public class VolunteerTableController {
         DataRequest req =new DataRequest();
         req.add("personId",personId);
         req.add("activityId",activityId);
-        res = HttpRequestUtil.request("/api/volunteer/getVolunteerList",req); //从后台获取所有志愿活动信息列表集合
+        res = HttpRequestUtil.request("/api/volunteer/getVolunteerList",req); //从后台获取所有社会实践信息列表集合
         if(res != null && res.getCode()== 0) {
             volunteerList = (ArrayList<Map>)res.getData();
         }
@@ -155,7 +155,7 @@ public class VolunteerTableController {
             stage.initModality(Modality.NONE);
             stage.setAlwaysOnTop(true);
             stage.setScene(scene);
-            stage.setTitle("志愿活动录入对话框！");
+            stage.setTitle("社会实践录入对话框！");
             stage.setOnCloseRequest(event ->{
                 MainApplication.setCanClose(true);
             });
@@ -189,7 +189,7 @@ public class VolunteerTableController {
         req.add("volunteerId",CommonMethod.getInteger(data,"volunteerId"));
         req.add("role",CommonMethod.getString(data,"role"));
         req.add("hours", CommonMethod.getString(data,"hours"));
-        res = HttpRequestUtil.request("/api/volunteer/volunteerSave",req); //保存志愿活动信息
+        res = HttpRequestUtil.request("/api/volunteer/volunteerSave",req); //保存社会实践活动信息
         if(res != null && res.getCode()== 0) {
             onQueryButtonClick();
         }
