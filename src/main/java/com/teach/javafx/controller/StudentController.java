@@ -93,7 +93,8 @@ public class StudentController extends ToolController {
     @FXML
     private TextField numNameTextField;  //查询 姓名学号输入域
 
-    private Integer personId = null;  //当前编辑修改的学生的主键
+    private Integer personId = null;//当前编辑修改的学生的主键
+    private String num = null;
 
     private ArrayList<Map> studentList = new ArrayList();  // 学生信息列表数据
     private List<OptionItem> genderList;   //性别选择列表数据
@@ -175,9 +176,9 @@ public class StudentController extends ToolController {
             clearPanel();
             return;
         }
-        personId = CommonMethod.getInteger(form, "personId");
+        num = String.valueOf(CommonMethod.getInteger(form, "num"));
         DataRequest req = new DataRequest();
-        req.add("personId", personId);
+        req.add("num", num);
         DataResponse res = HttpRequestUtil.request("/api/student/getStudentInfo", req);
         if (res.getCode() != 0) {
             MessageDialog.showDialog(res.getMsg());
@@ -288,7 +289,7 @@ public class StudentController extends ToolController {
         form.put("phone", phoneField.getText());
         form.put("address", addressField.getText());
         DataRequest req = new DataRequest();
-        req.add("personId", personId);
+        req.add("personId", null);
         req.add("form", form);
         DataResponse res = HttpRequestUtil.request("/api/student/studentEditSave", req);
         if (res.getCode() == 0) {
