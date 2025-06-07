@@ -135,7 +135,13 @@ public class StudentController extends ToolController {
         majorColumn.setCellValueFactory(new MapValueFactory<>("major"));
         classNameColumn.setCellValueFactory(new MapValueFactory<>("className"));
         cardColumn.setCellValueFactory(new MapValueFactory<>("card"));
-        genderColumn.setCellValueFactory(new MapValueFactory<>("genderName"));
+        //genderColumn.setCellValueFactory(new MapValueFactory<>("gender"));
+        genderColumn.setCellValueFactory(cell -> {
+            Map<String, Object> item = cell.getValue();
+            String gender = CommonMethod.getString(item, "gender");
+            String genderText = "1".equals(gender) ? "男" : "2".equals(gender) ? "女" : "";
+            return new javafx.beans.property.SimpleStringProperty(genderText);
+        });
         birthdayColumn.setCellValueFactory(new MapValueFactory<>("birthday"));
         emailColumn.setCellValueFactory(new MapValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new MapValueFactory<>("phone"));
