@@ -32,12 +32,12 @@
            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
           <children>
-             <Label style="-fx-text-fill: white;" text="用户名:">
+             <Label style="-fx-text-fill: black; -fx-background-color: #f9f4dc; -fx-background-radius: 4;" text=" 用户名: ">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin></Label>
              <TextField fx:id="usernameField" GridPane.columnIndex="1" />
-             <Label style="-fx-text-fill: white;" text="密码:" GridPane.rowIndex="1">
+             <Label style="-fx-text-fill: black; -fx-background-color: #f9f4dc; -fx-background-radius: 4;" text=" 密码: " GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
